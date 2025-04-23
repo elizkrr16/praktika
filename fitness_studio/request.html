@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitLife Studio - Заявка на услуги</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="images/logo.png" alt="FitLife Studio">
+                <h1>FitLife Studio</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="auth.html">Вход</a></li>
+                    <li><a href="register.html">Регистрация</a></li>
+                    <li><a href="request.html" class="active">Заявка на услуги</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="request-form">
+        <div class="container">
+            <h2>Заявка на услуги</h2>
+            <form>
+                <div class="form-group">
+                    <label for="service">Выберите услугу</label>
+                    <select id="service" name="service" required>
+                        <option value="">-- Выберите услугу --</option>
+                        <option value="personal">Персональная тренировка</option>
+                        <option value="group">Групповая тренировка</option>
+                        <option value="yoga">Йога</option>
+                        <option value="pilates">Пилатес</option>
+                        <option value="crossfit">Кроссфит</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="trainer">Предпочитаемый тренер (необязательно)</label>
+                    <select id="trainer" name="trainer">
+                        <option value="">-- Без предпочтений --</option>
+                        <option value="ivanov">Иван Иванов</option>
+                        <option value="petrova">Анна Петрова</option>
+                        <option value="sidorov">Сергей Сидоров</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="date">Желаемая дата</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="time">Желаемое время</label>
+                    <input type="time" id="time" name="time" required>
+                </div>
+                <div class="form-group">
+                    <label for="comments">Комментарии (необязательно)</label>
+                    <textarea id="comments" name="comments" rows="4"></textarea>
+                </div>
+                <button type="submit" class="btn">Отправить заявку</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="images/logo.png" alt="FitLife Studio">
+                    <h3>FitLife Studio</h3>
+                </div>
+                <div class="contacts">
+                    <h4>Контакты</h4>
+                    <p>г. Барнаул, ул. Чеглецова, 15</p>
+                    <p>Телефон: +7 (495) 123-45-67</p>
+                    <p>Email: info@fitlifestudio.ru</p>
+                </div>
+                <div class="social">
+                    <h4>Мы в соцсетях</h4>
+                    <a href="#"><img src="images/instagram.png" alt="Instagram"></a>
+                    <a href="#"><img src="images/telegram.png" alt="Telegram"></a>
+                    <a href="#"><img src="images/vk.png" alt="VK"></a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2025 FitLife Studio. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

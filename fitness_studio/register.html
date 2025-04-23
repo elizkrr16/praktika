@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitLife Studio - Регистрация</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="images/logo.png" alt="FitLife Studio">
+                <h1>FitLife Studio</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="auth.html">Вход</a></li>
+                    <li><a href="register.html" class="active">Регистрация</a></li>
+                    <li><a href="request.html">Заявка на услуги</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="register-form">
+        <div class="container">
+            <h2>Регистрация</h2>
+            <form>
+                <div class="form-group">
+                    <label for="name">Имя</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Телефон</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Пароль</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Подтвердите пароль</label>
+                    <input type="password" id="confirm-password" name="confirm-password" required>
+                </div>
+                <button type="submit" class="btn">Зарегистрироваться</button>
+                <p class="form-footer">Уже есть аккаунт? <a href="auth.html">Войти</a></p>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="images/logo.png" alt="FitLife Studio">
+                    <h3>FitLife Studio</h3>
+                </div>
+                <div class="contacts">
+                    <h4>Контакты</h4>
+                    <p>г. Барнаул, ул. Чеглецова, 15</p>
+                    <p>Телефон: +7 (495) 123-45-67</p>
+                    <p>Email: info@fitlifestudio.ru</p>
+                </div>
+                <div class="social">
+                    <h4>Мы в соцсетях</h4>
+                    <a href="#"><img src="images/instagram.png" alt="Instagram"></a>
+                    <a href="#"><img src="images/telegram.png" alt="Telegram"></a>
+                    <a href="#"><img src="images/vk.png" alt="VK"></a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2025 FitLife Studio. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
