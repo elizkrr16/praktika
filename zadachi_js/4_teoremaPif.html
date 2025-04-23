@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Теорема Пифагора</title>
+    <style>
+        canvas {
+            border: 1px solid #000;
+            display: block;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="pythagorasCanvas" width="500" height="400"></canvas>
+
+    <script>
+        const canvas = document.getElementById('pythagorasCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        const a = 100; // катет a
+        const b = 150; // катет b
+        let angle = 0;
+        let animationPhase = 0;
+        let animationProgress = 0;
+        
+        function animatePythagoras() {
+            requestAnimationFrame(animatePythagoras);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            const centerX = canvas.width / 2 - 100;
+            const centerY = canvas.height / 2;
+            
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.lineTo(centerX, centerY - a);
+            ctx.lineTo(centerX + b, centerY);
+            ctx.closePath();
+            ctx.strokeStyle = '#000';
+            ctx.stroke();
+
+            ctx.font = '16px Arial';
+            ctx.fillStyle = '#000';
+            ctx.fillText('a', centerX - 20, centerY - a/2);
+            ctx.fillText('b', centerX + b/2, centerY + 20);
+            ctx.fillText('c', centerX + b/2 - 30, centerY - a/2 + 20);
+            
+            // Анимация квадратов
+            if (animationPhase === 0) {
+                // Квадрат на катете a
+                const squareSize = Math.min(animationProgress, a);
+                ctx.fillStyle = 'rgba(52, 152, 219, 0.5)';
+                ctx.fillRect(centerX - squareSize, centerY - a, squareSize, squareSize);
+                
+                if (animationProgress >= a) {
+                    animationPhase = 1;
+                    animationProgress = 0;
+                }
+            } else if (animationPhase === 1) {
+                // Квадрат на катете a (полный)
+                ctx.fillStyle = 'rgba(52, 152, 219, 0.5)';
+                ctx.fillRect(centerX - a, centerY - a, a, a);
+                
+                // Квадрат на катете b
+                const squareSize = Math.min(animationProgress, b);
+                ctx.fillStyle = 'rgba(231, 76, 60, 0.5)';
+                ctx.fillRect(centerX + b - squareSize, centerY - squareSize, squareSize, squareSize);
+                
+                if (animationProgress >= b) {
+                    animationPhase = 2;
+                    animationProgress = 0;
+                }
+            } else if (animationPhase === 2) {
+                // Оба квадрата на катетах
+                ctx.fillStyle = 'rgba(52, 152, 219, 0.5)';
+                ctx.fillRect(centerX - a, centerY - a, a, a);
+                ctx.fillStyle = 'rgba(231, 76, 60, 0.5)';
+                ctx.fillRect(centerX + b - b, centerY - b, b, b);
+                
+                // Квадрат на гипотенузе
+                const c = Math.sqrt(a*a + b*b);
+                const squareSize = Math.min(animationProgress, c);
+                
+                // Поворачиваем квадрат
+                ctx.save();
+                ctx.translate(centerX, centerY);
+                ctx.rotate(-Math.atan2(a, b));
+                ctx.fillStyle = 'rgba(46, 204, 113, 0.5)';
+                ctx.fillRect(0, 0, squareSize, squareSize);
+                ctx.restore();
+                
+                if (animationProgress >= c) {
+                    animationPhase = 3;
+                }
+            } else {
+                // Все квадраты
+                ctx.fillStyle = 'rgba(52, 152, 219, 0.5)';
+                ctx.fillRect(centerX - a, centerY - a, a, a);
+                ctx.fillStyle = 'rgba(231, 76, 60, 0.5)';
+                ctx.fillRect(centerX + b - b, centerY - b, b, b);
+                
+                const c = Math.sqrt(a*a + b*b);
+                ctx.save();
+                ctx.translate(centerX, centerY);
+                ctx.rotate(-Math.atan2(a, b));
+                ctx.fillStyle = 'rgba(46, 204, 113, 0.5)';
+                ctx.fillRect(0, 0, c, c);
+                ctx.restore();
+                
+                // Формула
+                ctx.font = '24px Arial';
+                ctx.fillStyle = '#000';
+                ctx.fillText(`a² + b² = c² → ${a}² + ${b}² = ${c.toFixed(1)}²`, 50, 50);
+                ctx.fillText(`${a*a} + ${b*b} = ${(c*c).toFixed(1)}`, 50, 80);
+            }
+            
+            animationProgress += 2;
+        }
+        
+        animatePythagoras();
+    </script>
+</body>
+</html>

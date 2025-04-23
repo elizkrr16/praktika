@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Анимация движения круга по экрану</title>
+    <style>
+        canvas {
+            border: 1px solid #000;
+            display: block;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="circleCanvas" width="500" height="300"></canvas>
+
+    <script>
+        const canvas = document.getElementById('circleCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        let x = 50;
+        let y = 150;
+        let dx = 2;
+        let dy = 1.5;
+        const radius = 30;
+        
+        function animateCircle() {
+            requestAnimationFrame(animateCircle);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Рисуем круг
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fillStyle = '#3498db';
+            ctx.fill();
+            ctx.closePath();
+            
+            // Обновляем позицию
+            x += dx;
+            y += dy;
+            
+            // Отскок от границ
+            if (x + radius > canvas.width || x - radius < 0) {
+                dx = -dx;
+            }
+            if (y + radius > canvas.height || y - radius < 0) {
+                dy = -dy;
+            }
+        }
+        
+        animateCircle();
+    </script>
+</body>
+</html>

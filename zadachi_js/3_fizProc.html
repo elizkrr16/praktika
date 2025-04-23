@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Физическая анимация (Выбрана гравитация)</title>
+    <style>
+        canvas {
+            border: 1px solid #000;
+            display: block;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="physicsCanvas" width="500" height="400"></canvas>
+
+    <script>
+        const canvas = document.getElementById('physicsCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        const balls = [];
+        const gravity = 0.2;
+        const bounce = 0.8;
+        const friction = 0.99;
+        
+        // Создаем несколько шариков
+        for (let i = 0; i < 5; i++) {
+            balls.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height / 2,
+                radius: 15 + Math.random() * 15,
+                dx: Math.random() * 4 - 2,
+                dy: Math.random() * 2,
+                color: `hsl(${Math.random() * 360}, 70%, 50%)`
+            });
+        }
+        
+        function animatePhysics() {
+            requestAnimationFrame(animatePhysics);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Рисуем пол
+            ctx.fillStyle = '#2c3e50';
+            ctx.fillRect(0, canvas.height - 10, canvas.width, 10);
+            
+            // Обновляем и рисуем каждый шарик
+            balls.forEach(ball => {
+                // Применяем гравитацию
+                ball.dy += gravity;
+                
+                // Обновляем позицию
+                ball.x += ball.dx;
+                ball.y += ball.dy;
+                
+                // Столкновение с границами
+                if (ball.x + ball.radius > canvas.width) {
+                    ball.x = canvas.width - ball.radius;
+                    ball.dx = -ball.dx * bounce;
+                } else if (ball.x - ball.radius < 0) {
+                    ball.x = ball.radius;
+                    ball.dx = -ball.dx * bounce;
+                }
+                
+                // Столкновение с полом
+                if (ball.y + ball.radius > canvas.height - 10) {
+                    ball.y = canvas.height - 10 - ball.radius;
+                    ball.dy = -ball.dy * bounce;
+                    ball.dx *= friction;
+                }
+                
+                // Рисуем шарик
+                ctx.beginPath();
+                ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+                ctx.fillStyle = ball.color;
+                ctx.fill();
+                ctx.closePath();
+            });
+        }
+        
+        animatePhysics();
+    </script>
+</body>
+</html>

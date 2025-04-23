@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Изменение формы и цвета</title>
+    <style>
+        canvas {
+            border: 1px solid #000;
+            display: block;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="morphCanvas" width="500" height="400"></canvas>
+
+    <script>
+        const canvas = document.getElementById('morphCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        let time = 0;
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        
+        function animateMorph() {
+            requestAnimationFrame(animateMorph);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Изменяем цвет
+            const hue = (time * 2) % 360;
+            ctx.fillStyle = `hsl(${hue}, 80%, 60%)`;
+            
+            // Изменяем форму между кругом, квадратом и треугольником
+            const shapePhase = time % 3;
+            const morphProgress = (time % 1) * (time % 1); // Квадратичная интерполяция
+            
+            if (shapePhase < 1) {
+                // От круга к квадрату
+                const radius = 80;
+                if (morphProgress < 0.5) {
+                    // Все еще больше круг
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+                    ctx.fill();
+                } else {
+                    // Переход к квадрату
+                    const size = radius * 2 * (1 - morphProgress);
+                    ctx.fillRect(centerX - size/2, centerY - size/2, size, size);
+                }
+            } else if (shapePhase < 2) {
+                // От квадрата к треугольнику
+                const size = 100;
+                if (morphProgress < 0.5) {
+                    // Все еще больше квадрат
+                    ctx.fillRect(centerX - size/2, centerY - size/2, size, size);
+                } else {
+                    // Переход к треугольнику
+                    ctx.beginPath();
+                    ctx.moveTo(centerX, centerY - size/2 * (1 - morphProgress));
+                    ctx.lineTo(centerX + size/2 * (1 - morphProgress), centerY + size/2 * (1 - morphProgress));
+                    ctx.lineTo(centerX - size/2 * (1 - morphProgress), centerY + size/2 * (1 - morphProgress));
+                    ctx.closePath();
+                    ctx.fill();
+                }
+            } else {
+                // От треугольника к кругу
+                if (morphProgress < 0.5) {
+                    // Все еще больше треугольник
+                    const size = 100 * (1 - morphProgress);
+                    ctx.beginPath();
+                    ctx.moveTo(centerX, centerY - size/2);
+                    ctx.lineTo(centerX + size/2, centerY + size/2);
+                    ctx.lineTo(centerX - size/2, centerY + size/2);
+                    ctx.closePath();
+                    ctx.fill();
+                } else {
+                    // Переход к кругу
+                    const radius = 80 * morphProgress;
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+            
+            time += 0.005;
+        }
+        
+        animateMorph();
+    </script>
+</body>
+</html>

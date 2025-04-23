@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Движение точки по траектории (задан эллипс)</title>
+    <style>
+        canvas {
+            border: 1px solid #000;
+            display: block;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="pathCanvas" width="500" height="300"></canvas>
+
+    <script>
+        const canvas = document.getElementById('pathCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        let angle = 0;
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const radiusX = 150;
+        const radiusY = 80;
+        
+        function animatePoint() {
+            requestAnimationFrame(animatePoint);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Рисуем траекторию (эллипс)
+            ctx.beginPath();
+            ctx.ellipse(centerX, centerY, radiusX, radiusY, 0, 0, Math.PI * 2);
+            ctx.strokeStyle = '#ccc';
+            ctx.stroke();
+            ctx.closePath();
+            
+            // Позиция точки на эллипсе
+            const x = centerX + radiusX * Math.cos(angle);
+            const y = centerY + radiusY * Math.sin(angle);
+            
+            // Рисуем точку
+            ctx.beginPath();
+            ctx.arc(x, y, 5, 0, Math.PI * 2);
+            ctx.fillStyle = '#e74c3c';
+            ctx.fill();
+            ctx.closePath();
+            
+            angle += 0.02;
+        }
+        
+        animatePoint();
+    </script>
+</body>
+</html>
